@@ -1,0 +1,38 @@
+{
+  "schema": "plc-phy-lab.validation.v1",
+  "recorded_date": "2026-11-25",
+  "validated_commit": "41b7e2e9a25bea43daf364e51150119343c01171",
+  "local": {
+    "offline_unittest_count": 21,
+    "offline_unittest_result": "passed",
+    "gnuradio_compiler_version": "3.10.12.0",
+    "flowgraphs": [
+      "homeplug_spectrum.grc",
+      "homeplug_capture.grc"
+    ],
+    "grc_compilation": "passed",
+    "generated_python_syntax": "passed",
+    "documentation_and_registry_checks": "passed",
+    "synthetic_analysis": "passed",
+    "hardware_opened_during_validation": false
+  },
+  "github_actions": {
+    "run_id": 45585770664,
+    "url": "https://github.com/Elsa-is-My-Muse/PLC-PHY-Lab/actions/runs/45585770664",
+    "conclusion": "success",
+    "jobs": [
+      {
+        "python": "3.11",
+        "conclusion": "success"
+      },
+      {
+        "python": "3.12",
+        "conclusion": "success"
+      }
+    ]
+  },
+  "limitations": [
+    "No new CP-PE measurement was performed.",
+    "Synthetic example is not a HomePlug waveform."
+  ]
+}
