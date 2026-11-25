@@ -1,0 +1,205 @@
+options:
+  parameters:
+    author: Elsa-is-My-Muse
+    catch_exceptions: 'True'
+    category: '[GRC Hier Blocks]'
+    cmake_opt: ''
+    comment: ''
+    copyright: ''
+    description: CP-PE PLC receive-only study. Verify coupler and RF protection before connecting.
+    gen_cmake: 'On'
+    gen_linking: dynamic
+    generate_options: no_gui
+    hier_block_src_path: '.:'
+    id: homeplug_capture
+    max_nouts: '0'
+    output_language: python
+    placement: (0,0)
+    qt_qss_theme: ''
+    realtime_scheduling: ''
+    run: 'True'
+    run_command: '{python} -u {filename}'
+    run_options: run
+    sizing_mode: fixed
+    thread_safe_setters: ''
+    title: HomePlug - timed IQ capture (RX only)
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate:
+    - 8
+    - 8
+    rotation: 0
+    state: enabled
+blocks:
+- name: capture_imports
+  id: import
+  parameters:
+    imports: 'import datetime
+
+      import os
+
+      from pathlib import Path
+
+      Path(os.environ.get(''PLC_PHY_DATA_DIR'', str(Path.home() / ''PLC-PHY-Lab-data''))).expanduser().mkdir(parents=True,
+      exist_ok=True)'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate:
+    - 16
+    - 12
+    rotation: 0
+    state: enabled
+- name: samp_rate
+  id: variable
+  parameters:
+    value: 20e6
+    comment: ''
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate:
+    - 240
+    - 12
+    rotation: 0
+    state: enabled
+- name: center_freq
+  id: variable
+  parameters:
+    value: 10e6
+    comment: 10e6 for lower band; 22e6 for upper band.
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate:
+    - 440
+    - 12
+    rotation: 0
+    state: enabled
+- name: capture_seconds
+  id: variable
+  parameters:
+    value: '1'
+    comment: At 20 MS/s, complex float32 uses 160 MB per second.
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate:
+    - 640
+    - 12
+    rotation: 0
+    state: enabled
+- name: if_gain
+  id: variable
+  parameters:
+    value: '0'
+    comment: ''
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate:
+    - 16
+    - 128
+    rotation: 0
+    state: enabled
+- name: vga_gain
+  id: variable
+  parameters:
+    value: '0'
+    comment: ''
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate:
+    - 240
+    - 128
+    rotation: 0
+    state: enabled
+- name: capture_file
+  id: variable
+  parameters:
+    value: str(Path(os.environ.get('PLC_PHY_DATA_DIR', str(Path.home() / 'PLC-PHY-Lab-data'))).expanduser() / ('homeplug_'
+      + str(int(center_freq / 1e6)) + 'MHz_' + str(int(samp_rate / 1e6)) + 'MSps_' + datetime.datetime.now().strftime('%Y%m%d_%H%M%S_%f')
+      + '.cf32'))
+    comment: 'Portable output: PLC_PHY_DATA_DIR or ~/PLC-PHY-Lab-data. Interleaved little-endian float32 I,Q.'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate:
+    - 440
+    - 128
+    rotation: 0
+    state: enabled
+- name: hackrf_rx
+  id: soapy_hackrf_source
+  parameters:
+    type: fc32
+    dev_args: ''
+    samp_rate: samp_rate
+    bandwidth: 20e6
+    center_freq: center_freq
+    amp: 'False'
+    gain: if_gain
+    vga: vga_gain
+    comment: RX only. ANTENNA port via a suitable isolated PLC coupler. Start with AMP off and low gains.
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate:
+    - 48
+    - 264
+    rotation: 0
+    state: enabled
+- name: capture_length
+  id: blocks_head
+  parameters:
+    type: complex
+    num_items: int(samp_rate * capture_seconds)
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate:
+    - 352
+    - 280
+    rotation: 0
+    state: enabled
+- name: iq_file
+  id: blocks_file_sink
+  parameters:
+    type: complex
+    file: capture_file
+    vlen: '1'
+    append: 'False'
+    unbuffered: 'False'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate:
+    - 624
+    - 280
+    rotation: 0
+    state: enabled
+connections:
+- - hackrf_rx
+  - '0'
+  - capture_length
+  - '0'
+- - capture_length
+  - '0'
+  - iq_file
+  - '0'
+metadata:
+  file_format: 1

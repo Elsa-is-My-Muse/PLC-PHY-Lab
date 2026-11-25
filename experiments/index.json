@@ -1,0 +1,32 @@
+{
+  "schema": "plc-phy-lab.experiments.v1",
+  "experiments": [
+    {
+      "id": "EXP-0001",
+      "slug": "device-check",
+      "title": "HackRF 枚举与短时接收",
+      "status": "reported_prior_session",
+      "recorded_date": "2026-11-25",
+      "performed_date": null,
+      "path": "EXP-0001-device-check/README.md"
+    },
+    {
+      "id": "EXP-0002",
+      "slug": "capped-input-spectrum",
+      "title": "防尘帽状态下观察频谱",
+      "status": "reported_prior_session",
+      "recorded_date": "2026-11-25",
+      "performed_date": null,
+      "path": "EXP-0002-capped-input-spectrum/README.md"
+    },
+    {
+      "id": "EXP-0003",
+      "slug": "first-archived-iq",
+      "title": "首次带元数据的定时 IQ 归档",
+      "status": "planned",
+      "recorded_date": "2026-11-25",
+      "performed_date": null,
+      "path": "EXP-0003-first-archived-iq/README.md"
+    }
+  ]
+}

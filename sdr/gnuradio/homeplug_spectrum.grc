@@ -1,0 +1,294 @@
+options:
+  parameters:
+    author: Elsa-is-My-Muse
+    catch_exceptions: 'True'
+    category: '[GRC Hier Blocks]'
+    cmake_opt: ''
+    comment: ''
+    copyright: ''
+    description: CP-PE PLC receive-only study. Verify coupler and RF protection before connecting.
+    gen_cmake: 'On'
+    gen_linking: dynamic
+    generate_options: qt_gui
+    hier_block_src_path: '.:'
+    id: homeplug_spectrum
+    max_nouts: '0'
+    output_language: python
+    placement: (0,0)
+    qt_qss_theme: ''
+    realtime_scheduling: ''
+    run: 'True'
+    run_command: '{python} -u {filename}'
+    run_options: prompt
+    sizing_mode: fixed
+    thread_safe_setters: ''
+    title: HomePlug - HackRF spectrum (RX only)
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate:
+    - 8
+    - 8
+    rotation: 0
+    state: enabled
+blocks:
+- name: samp_rate
+  id: variable
+  parameters:
+    value: 20e6
+    comment: ''
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate:
+    - 16
+    - 12
+    rotation: 0
+    state: enabled
+- name: center_freq
+  id: variable_qtgui_chooser
+  parameters:
+    label: Band / center frequency
+    type: real
+    num_opts: '2'
+    value: 10e6
+    option0: 10e6
+    label0: 'Lower band: center 10 MHz (inspect 2-18 MHz)'
+    option1: 22e6
+    label1: 'Upper band: center 22 MHz (inspect 14-30 MHz)'
+    widget: combo_box
+    gui_hint: 0,0,1,2
+    comment: Sequential band selection; this does not capture 2-30 MHz simultaneously.
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate:
+    - 240
+    - 12
+    rotation: 0
+    state: enabled
+- name: if_gain
+  id: variable_qtgui_range
+  parameters:
+    label: IF gain (dB)
+    rangeType: int
+    value: '0'
+    start: '0'
+    stop: '40'
+    step: '8'
+    widget: counter_slider
+    orient: QtCore.Qt.Horizontal
+    min_len: '240'
+    gui_hint: 1,0,1,1
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate:
+    - 16
+    - 128
+    rotation: 0
+    state: enabled
+- name: vga_gain
+  id: variable_qtgui_range
+  parameters:
+    label: VGA gain (dB)
+    rangeType: int
+    value: '0'
+    start: '0'
+    stop: '62'
+    step: '2'
+    widget: counter_slider
+    orient: QtCore.Qt.Horizontal
+    min_len: '240'
+    gui_hint: 1,1,1,1
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate:
+    - 240
+    - 128
+    rotation: 0
+    state: enabled
+- name: hackrf_rx
+  id: soapy_hackrf_source
+  parameters:
+    type: fc32
+    dev_args: ''
+    samp_rate: samp_rate
+    bandwidth: 20e6
+    center_freq: center_freq
+    amp: 'False'
+    gain: if_gain
+    vga: vga_gain
+    comment: RX only. ANTENNA port via a suitable isolated PLC coupler. Start with AMP off and low gains.
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate:
+    - 48
+    - 264
+    rotation: 0
+    state: enabled
+- name: spectrum
+  id: qtgui_freq_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    autoscale: 'False'
+    average: '0.2'
+    axislabels: 'True'
+    bw: samp_rate
+    color1: '"blue"'
+    color10: '"dark blue"'
+    color2: '"red"'
+    color3: '"green"'
+    color4: '"black"'
+    color5: '"cyan"'
+    color6: '"magenta"'
+    color7: '"yellow"'
+    color8: '"dark red"'
+    color9: '"dark green"'
+    comment: ''
+    ctrlpanel: 'False'
+    fc: center_freq
+    fftsize: '4096'
+    freqhalf: 'True'
+    grid: 'True'
+    gui_hint: 2,0,1,2
+    label: Relative Gain
+    label1: ''
+    label10: ''''''
+    label2: ''''''
+    label3: ''''''
+    label4: ''''''
+    label5: ''''''
+    label6: ''''''
+    label7: ''''''
+    label8: ''''''
+    label9: ''''''
+    legend: 'True'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    name: HomePlug - spectrum
+    nconnections: '1'
+    norm_window: 'False'
+    showports: 'False'
+    tr_chan: '0'
+    tr_level: '0.0'
+    tr_mode: qtgui.TRIG_MODE_FREE
+    tr_tag: '""'
+    type: complex
+    units: dB
+    update_time: '0.10'
+    width1: '1'
+    width10: '1'
+    width2: '1'
+    width3: '1'
+    width4: '1'
+    width5: '1'
+    width6: '1'
+    width7: '1'
+    width8: '1'
+    width9: '1'
+    wintype: window.WIN_BLACKMAN_hARRIS
+    ymax: '0'
+    ymin: '-120'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate:
+    - 528
+    - 248
+    rotation: 0
+    state: enabled
+- name: waterfall
+  id: qtgui_waterfall_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    axislabels: 'True'
+    bw: samp_rate
+    color1: '0'
+    color10: '0'
+    color2: '0'
+    color3: '0'
+    color4: '0'
+    color5: '0'
+    color6: '0'
+    color7: '0'
+    color8: '0'
+    color9: '0'
+    comment: ''
+    fc: center_freq
+    fftsize: '4096'
+    freqhalf: 'True'
+    grid: 'True'
+    gui_hint: 3,0,1,2
+    int_max: '-10'
+    int_min: '-80'
+    label1: ''
+    label10: ''
+    label2: ''
+    label3: ''
+    label4: ''
+    label5: ''
+    label6: ''
+    label7: ''
+    label8: ''
+    label9: ''
+    legend: 'True'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    name: HomePlug - waterfall
+    nconnections: '1'
+    showports: 'False'
+    type: complex
+    update_time: '0.10'
+    wintype: window.WIN_BLACKMAN_hARRIS
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate:
+    - 528
+    - 408
+    rotation: 0
+    state: enabled
+connections:
+- - hackrf_rx
+  - '0'
+  - spectrum
+  - '0'
+- - hackrf_rx
+  - '0'
+  - waterfall
+  - '0'
+metadata:
+  file_format: 1

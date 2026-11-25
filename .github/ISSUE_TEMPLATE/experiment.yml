@@ -1,0 +1,38 @@
+name: 实验记录
+description: 提交可复核的实验设置、数据索引和结论
+title: "[实验] "
+labels: []
+body:
+  - type: dropdown
+    id: source
+    attributes:
+      label: 数据来源
+      options:
+        - 实测
+        - 仿真／合成
+        - 历史记录整理
+    validations:
+      required: true
+  - type: textarea
+    id: objective
+    attributes:
+      label: 实验问题与条件
+    validations:
+      required: true
+  - type: textarea
+    id: setup
+    attributes:
+      label: 接线、采样与增益参数
+      description: 未知项请明确标注；不要提交设备标识或凭据。
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: 数据索引、结果与证据局限
+    validations:
+      required: true
+  - type: textarea
+    id: conclusion
+    attributes:
+      label: 结论与下一步

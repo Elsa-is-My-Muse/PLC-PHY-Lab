@@ -1,0 +1,67 @@
+{
+  "schema": "plc-phy-lab.inventory.v1",
+  "updated": "2026-11-25",
+  "items": [
+    {
+      "id": "sdr-01",
+      "kind": "sdr",
+      "quantity": 1,
+      "ownership": "confirmed",
+      "model": "HackRF One",
+      "model_status": "reported_by_device_in_prior_session",
+      "firmware_reported": "2024.02.1",
+      "calibration_status": "unknown"
+    },
+    {
+      "id": "coupler-01",
+      "kind": "plc_coupler",
+      "quantity": 1,
+      "ownership": "user_confirmed",
+      "model": null,
+      "previous_candidate": "PREMO MICU 300A-S/LF",
+      "model_status": "unverified",
+      "verified_band_hz": null,
+      "maximum_output_dbm": null
+    },
+    {
+      "id": "limiter-01",
+      "kind": "rf_limiter",
+      "quantity": 1,
+      "ownership": "user_confirmed",
+      "model": null,
+      "previous_candidate": "VLM-33W-2W-S+",
+      "model_status": "unverified"
+    },
+    {
+      "id": "attenuator-01",
+      "kind": "fixed_attenuator",
+      "quantity": 1,
+      "ownership": "configuration_confirmed_actual_part_unverified",
+      "model": null,
+      "previous_candidate": "VAT-30A+",
+      "proposed_attenuation_db": 30,
+      "verified_attenuation_db": null
+    },
+    {
+      "id": "attenuator-02",
+      "kind": "fixed_attenuator",
+      "quantity": 1,
+      "ownership": "configuration_confirmed_actual_part_unverified",
+      "model": null,
+      "previous_candidate": "VAT-10A+",
+      "proposed_attenuation_db": 10,
+      "verified_attenuation_db": null
+    },
+    {
+      "id": "coax-set",
+      "kind": "coaxial_cables",
+      "ownership": "unknown",
+      "impedance_ohm_proposed": 50,
+      "cable_proposed": "RG316",
+      "connectors_proposed": [
+        "BNC male to SMA male",
+        "SMA female to SMA male"
+      ]
+    }
+  ]
+}

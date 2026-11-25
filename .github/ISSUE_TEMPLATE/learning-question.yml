@@ -1,0 +1,20 @@
+name: 学习问题
+description: 记录原理、电路或信号处理中的具体问题
+title: "[学习] "
+labels: []
+body:
+  - type: textarea
+    id: question
+    attributes:
+      label: 想解决的问题
+      description: 写出具体观察、概念或推导中的疑问。
+    validations:
+      required: true
+  - type: textarea
+    id: references
+    attributes:
+      label: 已阅读资料与当前理解
+  - type: textarea
+    id: next-step
+    attributes:
+      label: 拟采用的验证方法

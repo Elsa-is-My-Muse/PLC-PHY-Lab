@@ -1,0 +1,23 @@
+{
+  "schema": "plc-phy-lab.capture.v1",
+  "created_at_utc": "2026-11-25T09:24:09.711890+00:00",
+  "source": "synthetic",
+  "iq_file": "synthetic_demo.cf32",
+  "format": "cf32_le",
+  "sample_rate_hz": 1000000.0,
+  "center_frequency_hz": 10000000.0,
+  "sample_count": 65536,
+  "byte_count": 524288,
+  "duration_seconds_from_sample_count": 0.065536,
+  "sha256": "6dc104bfe787c77c1042f304f1200a36239f2865a1393d472b1ae66504ce0e81",
+  "receiver": {},
+  "rf_power_calibration": "not_applied",
+  "notes": "Seed=20261125. Noise plus bursts at +125 kHz and -210 kHz; not HomePlug.",
+  "generator": {
+    "seed": 20261125,
+    "tones_baseband_hz": [
+      125000,
+      -210000
+    ]
+  }
+}

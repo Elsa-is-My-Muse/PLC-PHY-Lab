@@ -1,0 +1,36 @@
+{
+  "schema": "plc-phy-lab.analysis.v1",
+  "source": "synthetic",
+  "iq_file": "synthetic_demo.cf32",
+  "format": "cf32_le",
+  "sample_rate_hz": 1000000.0,
+  "center_frequency_hz": 10000000.0,
+  "total_samples": 65536,
+  "analyzed_samples": 65536,
+  "analyzed_duration_seconds": 0.065536,
+  "analyzed_region": "start_of_file",
+  "psd_unit": "dB re 1 sample-unit squared per Hz; uncalibrated",
+  "psd_method": "two-sided Welch; periodic Hann window; 50 percent overlap; detrend disabled",
+  "fft_length": 4096,
+  "fft_bin_spacing_hz": 244.140625,
+  "psd_integral_unit_squared": 0.038139355934331744,
+  "peak_rf_frequency_hz": 10125000.0,
+  "input_sha256_from_metadata": "6dc104bfe787c77c1042f304f1200a36239f2865a1393d472b1ae66504ce0e81",
+  "input_hash_verified": true,
+  "rf_power_calibration": "not_applied",
+  "statistics": {
+    "mean_power_unit_squared": 0.0367775995510045,
+    "rms_sample_units": 0.1917748668387088,
+    "peak_magnitude_sample_units": 0.32054170865712933,
+    "papr_db": 4.461857155154793,
+    "dc_i_sample_units": -2.323478184836753e-05,
+    "dc_q_sample_units": -2.2313898147918276e-05,
+    "near_unit_component_fraction": 0.0
+  },
+  "limitations": [
+    "This is not a HomePlug decoder or calibrated RF power meter.",
+    "Sample-domain PAPR depends on the selected interval, noise and idle time.",
+    "Near-unit components alone do not establish ADC clipping.",
+    "File integrity does not establish absence of capture sample drops."
+  ]
+}
