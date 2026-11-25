@@ -14,6 +14,7 @@
 | [NanoVNA-Saver](https://github.com/NanoVNA-Saver/nanovna-saver) | 校准、扫描、Touchstone 导出 | 夹具与校准如何进入误差预算？ |
 | [qca/open-plc-utils](https://github.com/qca/open-plc-utils) | `SignalToNoise*.c`、`ToneMaps*.c`、`PhyRates*.c`、`slac/` | 查询返回什么？本机固件是否支持？ |
 | [open-plc-com/PLC-modem](https://github.com/open-plc-com/PLC-modem) | 1.84 MHz 耦合、谐振与接收电路 | 窄带方案与宽带 OFDM 的线性要求有何不同？ |
+| [ssloxford/brokenwire](https://github.com/ssloxford/brokenwire) | README、论文实验装置与输出功率测量；[阅读笔记](reading/BROKENWIRE.md) | 发射端口功率与线路接收功率有何区别？电磁耦合如何影响通信可用性？ |
 
 `gr-plc` 作者说明其实现不与标准 HomePlug 互通，且安装示例基于较老环境；将其作为算法教材，不能标记为现成 Green PHY 解码器。`open-plc-utils` 是管理／查询工具和相关协议实现，不是芯片内部 PHY／AFE 源码。
 
