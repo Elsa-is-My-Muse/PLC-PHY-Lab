@@ -44,6 +44,27 @@
 
 以上任务当前是阅读／分析计划。目前的设备清单未确认拥有 LimeSDR、该型号放大器、功率计或 VNA；没有产生本论文的复现数据。
 
+## 源码核对：2026-11-25
+
+此前记录基于论文与仓库 README。本次补充静态源码阅读，检出提交为 `d4edeeee7798e6cf7cdba3d848e993b679703cfc`（提交时间 2023-03-04）。阅读了全部四个 Python 文件、README、Dockerfile、Compose 配置及依赖清单；没有运行发射或台架控制脚本。
+
+| 文件 | 源码实际提供的功能 | 对本项目的学习意义 |
+| --- | --- | --- |
+| [preamble_emission.py](https://github.com/ssloxford/brokenwire/blob/d4edeeee7798e6cf7cdba3d848e993b679703cfc/code/scripts/preamble_emission.py) | 读取已有复数样本文件，交给 Soapy LimeSDR Sink 重放 | 区分记录波形、重放波形和从协议生成完整帧。 |
+| [collect_data.py](https://github.com/ssloxford/brokenwire/blob/d4edeeee7798e6cf7cdba3d848e993b679703cfc/code/lab_evaluation/collect_data.py) | 控制作者台架，读取 iperf JSON 中的丢包、包数和抖动，保存评估结果 | 理解射频条件与链路统计的关联，以及异常记录对结论的影响。 |
+| [IPerfEvaluation.py](https://github.com/ssloxford/brokenwire/blob/d4edeeee7798e6cf7cdba3d848e993b679703cfc/code/lib/IPerfEvaluation.py) | 记录距离、线长、设备、电源、天线位置等实验条件 | 借鉴元数据字段；这些字段不等于自动测得的物理量。 |
+| [EvaluationUtils.py](https://github.com/ssloxford/brokenwire/blob/d4edeeee7798e6cf7cdba3d848e993b679703cfc/code/lib/EvaluationUtils.py) | 将结果对象转换成表格并写入 CSV | 学习结果持久化和版本依赖。 |
+| [Dockerfile](https://github.com/ssloxford/brokenwire/blob/d4edeeee7798e6cf7cdba3d848e993b679703cfc/Dockerfile)／[Compose](https://github.com/ssloxford/brokenwire/blob/d4edeeee7798e6cf7cdba3d848e993b679703cfc/docker-compose.yml) | Ubuntu 20.04、GNU Radio、LimeSuite 与 Linux 设备挂载环境 | 作者台架依赖与本地 Windows 接收环境需要分别评估。 |
+
+### 阅读时需要保留的边界
+
+- **实现范围：** 检出的源码主要提供波形重放与链路评估，没有完整 Green PHY 接收解码链、SLAC 解码器或 PLC 耦合电路的原理图／PCB。文件中的 FFT 相关导入也不能当作已实现频谱分析的证据；应看实际连接的处理块。
+- **采样文件：** `data/preambles/captured_preamble.dat` 大小为 12,000 字节。按脚本读取的 8 字节复数样本解释，为 1,500 个复样本。SHA-256 为 `3eeca5d1673d6f81c3a56698416cca16c2d22fc0679f4756352a5d843d4c6710`。仓库未随文件提供完整的独立采集元数据，不能直接把重放设置视为已核实的原始采集条件。文件仅在临时源码检出中检查，未复制到本项目。
+- **统计含义：** `collect_data.py` 将连接失败标记为 `loss=100`；多次连接失败后还会跳过后续测试项并填入同样的值。解读 CSV 时要区分成功测量、连接错误和跳过项，不能把每一行都视为独立实测。
+- **功率单位：** `IPerfEvaluation.py` 声明了 `output_power` 类属性，但本次阅读的评估代码没有填入校准后的功率，也没有提供 SDR 增益到 dBm 的标定映射。论文的功率计测量说明不能据此理解为仓库会自动完成绝对功率校准。
+- **环境版本：** 发射脚本头注明 GNU Radio 3.9.2.0。依赖清单未固定 pandas 版本，而 CSV 工具调用的 `DataFrame.append()` 已在 [pandas 2.0.0 中移除](https://pandas.pydata.org/docs/whatsnew/v2.0.0.html#removal-of-prior-version-deprecations-changes)。这是静态检查发现的兼容性问题，本次未构建容器或验证运行。
+
+当前学习顺序建议为：先阅读实验条件与结果存储，再理解样本文件和处理块连接，最后对照论文核查测量定义。全部结论维持“源码阅读”，不标记为硬件复现完成。
 ## 原始资料
 
 - [NDSS 2023 正式论文 PDF](https://www.ndss-symposium.org/wp-content/uploads/2023-251-paper.pdf)：截图所在实验装置、输出功率测量及后续分析。
