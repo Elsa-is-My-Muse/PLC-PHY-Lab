@@ -23,6 +23,7 @@
 - [ ] 固定中心频率与增益，对比有通信／无通信的相对谱和时域突发。
 - [ ] 运行通用 OFDM 回环，记录频偏和噪声对接收的影响。
 - [ ] 阅读 [BROKENWIRE 笔记](reading/BROKENWIRE.md)，解释增益设置、压缩点、测量参考面与接收端功率的区别。
+- [ ] 阅读 [Current Affairs 笔记](reading/CURRENT_AFFAIRS.md)，追踪 SLAC 的 C／Python 调用和 AAG 输出，设计 IQ／PCAP／日志的时间关联。
 
 ## 后续能力边界
 

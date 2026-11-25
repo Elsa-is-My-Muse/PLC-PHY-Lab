@@ -16,6 +16,7 @@
 - [日常记录与提交方法](docs/RECORDING_WORKFLOW.md)
 - [参考项目与阅读入口](docs/REFERENCES.md)
 - [BROKENWIRE：耦合与功率测量阅读笔记](docs/reading/BROKENWIRE.md)
+- [Current Affairs：SLAC 与 PCAP 源码阅读](docs/reading/CURRENT_AFFAIRS.md)
 
 ## 当前进度
 
